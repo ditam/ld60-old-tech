@@ -1,0 +1,19 @@
+body {
+  background-color: #484b5d;
+  color: #dcd5d5;
+  font-size: 58px;
+  padding: 100px;
+
+  font-weight: 400;
+  font-style: normal;
+
+  user-select: none;
+}
+
+.char.green {
+  color: green;
+}
+
+.char.red {
+  color: red;
+}
