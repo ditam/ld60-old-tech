@@ -5,7 +5,8 @@ let currentSceneIndex = 0;
 const _scenes = [
   {
     lines: [
-      'Hello World Asdf More stuff other a and b stuffies. Wonderful.',
+      'First line',
+      'Hello World Asdf More stuff other a and b stufies. Wonderful.',
       'Hello to you too...',
       'Third line!'
     ],
@@ -14,6 +15,9 @@ const _scenes = [
 ];
 
 // TODO: assert structure
+// - mandatory fields present
+// - assert keyword contained in lines
+// - assert only one occurence per keyword
 
 export default {
   getCurrentSceneData: function() {

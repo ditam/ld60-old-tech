@@ -10,10 +10,14 @@ body {
   user-select: none;
 }
 
-.char.green {
-  color: green;
+.text-container .spacer {
+  height: 32px;
 }
 
-.char.red {
-  color: red;
+.char.active {
+  color: blue;
+}
+
+.char.keyword.active {
+  color: green;
 }

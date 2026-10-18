@@ -19,23 +19,48 @@ let typeTimeout;
 function displayScene(sceneData) {
   console.log('displaying scene:', sceneData);
   keyword = sceneData.keyword;
-  const line = $('<div></div>').addClass('line');
+  const textContainer = $('<div></div>').addClass('text-container');
   mainContainer.empty();
-  line.appendTo(mainContainer);
+  textContainer.appendTo(mainContainer);
 
-  const text = sceneData.lines[0];
+  // jam hack: assemble lines into single string with magic separator,
+  // (this keeps iterating easy)
+  // then re-add visual line breaks as we go
+  // (this maintains the original line breaks visually)
+  let fullText = '';
+  sceneData.lines.forEach(line => {
+    fullText += line;
+    fullText += '%';
+  });
+
+  let kwStart;
   function addNextChar() {
-    if (i < text.length) {
-      const c = text[i];
-      const charEl = $('<span></span>').addClass('char').text(c);
-      if (isLetter(c)) {
-        charEl.addClass('char-'+c);
+    if (i < fullText.length) {
+      const c = fullText[i];
+
+      if (c !== '%') {
+        const charEl = $('<span></span>').addClass('char').text(c);
+        if (isLetter(c)) {
+          charEl.addClass('char-'+c);
+        }
+        if (fullText.slice(i, i+keyword.length) === keyword) {
+          console.log('KW found at:', i);
+          kwStart = i;
+        }
+        if (kwStart && i<kwStart+keyword.length) {
+          charEl.addClass('keyword');
+        }
+        charEl.appendTo(textContainer);
+      } else {
+        // magic line break
+        $('<div>').addClass('spacer').appendTo(textContainer);
       }
-      charEl.appendTo(line);
+
       i++;
       typeTimeout = setTimeout(addNextChar, constants.CHAR_TIMEOUT);
     } else {
       console.log('finished line.');
+      // TODO: disable typing until line finished
       clearTimeout(typeTimeout);
     }
   }
@@ -43,12 +68,33 @@ function displayScene(sceneData) {
   addNextChar();
 }
 
+let currentlyTypedWord = '';
 function processInput(char) {
   console.assert(isLetter(char));
-  console.log('input: ', char);
+
+  // remove any previous highlight - unless it started a keyword
+  $('.char').not('.keyword').removeClass('active');
+
+  currentlyTypedWord += char;
+  if (keyword.startsWith(currentlyTypedWord)) {
+    // continued word: highlight can stay, check for full trigger
+    if (keyword === currentlyTypedWord) {
+      console.log('===> keyword hit');
+      // TODO: play animation
+      // TODO: change scenes
+    }
+  } else {
+    // start new word: highlight has to go
+    $('.char').removeClass('active');
+    currentlyTypedWord = char;
+  }
+
+  // highlight newly typed char
   const classQuery = '.char-' + char;
-  $('.char').removeClass('green', 'red');
-  $(classQuery).addClass('green');
+  $(classQuery).each(function() {
+    const el = $(this);
+    el.addClass('active');
+  });
 }
 
 let mainContainer;
