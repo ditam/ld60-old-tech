@@ -14,11 +14,13 @@ function isLetter(char) {
 }
 
 let i = 0;
-let keyword;
+let keywordA;
+let keywordB;
 let typeTimeout;
 function displayScene(sceneData) {
   console.log('displaying scene:', sceneData);
-  keyword = sceneData.keyword;
+  keywordA = sceneData.keywordA;
+  keywordB = sceneData.keywordB;
   const textContainer = $('<div></div>').addClass('text-container');
   mainContainer.empty();
   textContainer.appendTo(mainContainer);
@@ -33,7 +35,7 @@ function displayScene(sceneData) {
     fullText += '%';
   });
 
-  let kwStart;
+  let kwAStart, kwBStart;
   function addNextChar() {
     if (i < fullText.length) {
       const c = fullText[i];
@@ -43,12 +45,19 @@ function displayScene(sceneData) {
         if (isLetter(c)) {
           charEl.addClass('char-'+c);
         }
-        if (fullText.slice(i, i+keyword.length) === keyword) {
-          console.log('KW found at:', i);
-          kwStart = i;
+        if (fullText.slice(i, i+keywordA.length).toLowerCase() === keywordA) {
+          console.log('KW A found at:', i);
+          kwAStart = i;
         }
-        if (kwStart && i<kwStart+keyword.length) {
+        if (fullText.slice(i, i+keywordB.length).toLowerCase() === keywordB) {
+          console.log('KW B found at:', i);
+          kwBStart = i;
+        }
+        if (kwAStart && i<kwAStart+keywordA.length) {
           charEl.addClass('keyword');
+        }
+        if (kwBStart && i<kwBStart+keywordB.length) {
+          charEl.addClass('keyword alt');
         }
         charEl.appendTo(textContainer);
       } else {
@@ -76,10 +85,15 @@ function processInput(char) {
   $('.char').not('.keyword').removeClass('active');
 
   currentlyTypedWord += char;
-  if (keyword.startsWith(currentlyTypedWord)) {
+  if (keywordA.startsWith(currentlyTypedWord) || keywordB.startsWith(currentlyTypedWord)) {
     // continued word: highlight can stay, check for full trigger
-    if (keyword === currentlyTypedWord) {
-      console.log('===> keyword hit');
+    if (keywordA === currentlyTypedWord) {
+      console.log('===> keywordA hit');
+      // TODO: play animation
+      // TODO: change scenes
+    }
+    if (keywordB === currentlyTypedWord) {
+      console.log('===> keywordB hit');
       // TODO: play animation
       // TODO: change scenes
     }

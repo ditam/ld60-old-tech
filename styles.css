@@ -15,9 +15,9 @@ body {
 }
 
 .char.active {
-  color: blue;
+  color: #8282e9;
 }
 
 .char.keyword.active {
-  color: green;
+  color: rgb(89, 160, 89);
 }

@@ -10,13 +10,15 @@ const _scenes = [
       'Hello to you too...',
       'Third line!'
     ],
-    keyword: 'stuff'
+    keywordA: 'stuff',
+    keywordB: 'world'
   }
 ];
 
 // TODO: assert structure
 // - mandatory fields present
 // - assert keyword contained in lines
+// - keywords are lower case
 // - assert only one occurence per keyword
 
 export default {
