@@ -66,6 +66,7 @@ function displayScene(sceneData) {
       }
 
       i++;
+      // TODO: increase timeout for . characters for better flow.
       typeTimeout = setTimeout(addNextChar, constants.CHAR_TIMEOUT);
     } else {
       console.log('finished line.');
