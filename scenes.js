@@ -5,6 +5,7 @@ let currentSceneIndex = 0;
 const _scenes = [
   {
     type: 'convo',
+    icon: 'icon0.png',
     lines: [
       'So who\'s the suspect?',
       'A golem',
@@ -21,6 +22,7 @@ const _scenes = [
   },
   {
     type: 'A',
+    icon: 'icon1.png',
     lines: [
       'I hate dealing with golems.',
       'They can barely string two sentences together,',
@@ -34,6 +36,7 @@ const _scenes = [
   },
   {
     type: 'B',
+    icon: 'icon2.png',
     lines: [
       'Freedom. A road trip like it\'s 2035.',
       'I should have a couple hours until he gets here.',

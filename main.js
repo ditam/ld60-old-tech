@@ -24,6 +24,8 @@ function displayScene(sceneData) {
   const textContainer = $('<div></div>').addClass('text-container');
   mainContainer.empty();
   textContainer.appendTo(mainContainer);
+  const icon = $('<img src="'+sceneData.icon+'">').addClass('scene-icon');
+  icon.appendTo(mainContainer);
 
   // jam hack: assemble lines into single string with magic separator,
   // (this keeps iterating easy)
