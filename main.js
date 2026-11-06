@@ -49,7 +49,7 @@ function displayScene(sceneData) {
           console.log('KW A found at:', i);
           kwAStart = i;
         }
-        if (fullText.slice(i, i+keywordB.length).toLowerCase() === keywordB) {
+        if (keywordB && fullText.slice(i, i+keywordB.length).toLowerCase() === keywordB) {
           console.log('KW B found at:', i);
           kwBStart = i;
         }
@@ -86,7 +86,7 @@ function processInput(char) {
   $('.char').not('.keyword').removeClass('active');
 
   currentlyTypedWord += char;
-  if (keywordA.startsWith(currentlyTypedWord) || keywordB.startsWith(currentlyTypedWord)) {
+  if (keywordA.startsWith(currentlyTypedWord) || (keywordB && keywordB.startsWith(currentlyTypedWord))) {
     // continued word: highlight can stay, check for full trigger
     if (keywordA === currentlyTypedWord) {
       console.log('===> keywordA hit');
