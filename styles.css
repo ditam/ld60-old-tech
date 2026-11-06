@@ -1,8 +1,9 @@
 body {
   background: linear-gradient(135deg, #423838, #393f79);
   color: #dcd5d5;
-  font-size: 22px;
-  padding: 250px;
+  font-size: 28px;
+  padding: 20px;
+  line-height: 0.75;
 
   font-weight: 400;
   font-style: normal;
