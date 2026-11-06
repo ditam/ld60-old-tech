@@ -67,10 +67,12 @@ function displayScene(sceneData) {
 
       i++;
       // TODO: increase timeout for . characters for better flow.
-      typeTimeout = setTimeout(addNextChar, constants.CHAR_TIMEOUT);
+      const modifier = isDebug? 1 : 4;
+      typeTimeout = setTimeout(addNextChar, constants.CHAR_TIMEOUT * modifier);
     } else {
-      console.log('finished line.');
-      // TODO: disable typing until line finished
+      console.log('finished typing scene.');
+      i = 0;
+      // TODO: maybe here to disable typing until scene finished?
       clearTimeout(typeTimeout);
     }
   }
@@ -91,7 +93,9 @@ function processInput(char) {
     if (keywordA === currentlyTypedWord) {
       console.log('===> keywordA hit');
       // TODO: play animation
-      // TODO: change scenes
+      scenes.changeScene();
+      const sceneData = scenes.getCurrentSceneData();
+      displayScene(sceneData);
     }
     if (keywordB === currentlyTypedWord) {
       console.log('===> keywordB hit');
@@ -121,6 +125,7 @@ $(document).ready(function() {
   displayScene(sceneData);
 
   document.addEventListener('keydown', (e) => {
+    // TODO: block input processing while scene is typing
     const key = e.key.toLowerCase();
     if (key.length !== 1) {
       // Some keys are full words like Shift or Enter
